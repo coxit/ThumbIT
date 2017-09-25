@@ -9,7 +9,8 @@ Tested on MacOSX only.
 
 ##### Final Cut Pro X
 
-- The script will search for text overlays for each clip to define the naming. 
+The script will search for text overlays for each clip to define the file naming. 
+If no text overlay is found, it creates a generic file name.
 - Export one timeline to FCPXML 1.6
 - Export one quicktime movie
 
@@ -29,3 +30,11 @@ Optional:
 - Python 3
 - MMPEG
 - CV2
+
+### Planned Features
+- Support for drop frame formats (eg 29,97fps)
+- XLS import: Tumbnail, Shot Data.
+
+### Limitations
+- No support for FCPX exported from Adobe Premier
+- No support for drop frame formats

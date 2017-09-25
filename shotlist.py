@@ -1,15 +1,7 @@
-import shelve
-from shot import Shot
-import os
-from timecode import Timecode
-from sys import argv
-from xml.etree.ElementTree import parse
-from pysrt import SubRipFile, SubRipItem, SubRipTime
-import pprint
-import xml.etree.ElementTree
-
+# NOT USED
 # Creating a shelve to store all shots in a persitent file
 # shotlist = shelve.open('shotlistest-shelve')
+
 
 def add_shot_to_shotlist(shotcode, shot):
     '''
