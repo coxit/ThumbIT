@@ -1,14 +1,11 @@
-import subprocess
-import concurrent.futures
-import cv2
 import os
+import subprocess
+
+import cv2
 
 
 class ThumbnailMaker():
 
-
-    # TODO: How to deal with existing frames
-    # TODO: Add function to process a list of thumbnails
     # TODO: Parralize the output process
 
     def __init__(self, source_movie, export_format='png', export_path='export/'):
@@ -60,7 +57,8 @@ class ThumbnailMaker():
 
         # Running FFMPEG
         # TODO: Hide the ffmpeg shell output or make it more readable.
-        subprocess.call(ffmpeg_command, shell=True)
+        # Changed from call to run
+        subprocess.run(ffmpeg_command, shell=True)
 
         # return path to output
         exported_frame_path = '{}{}.{}'.format(self.export_path, export_filename, self.export_format)
