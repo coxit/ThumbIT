@@ -33,7 +33,7 @@ Optional:
 
 ### Planned Features
 - Support for drop frame formats (eg 29,97fps)
-- XLS import: Tumbnail, Shot Data.
+- XLS export: Tumbnail, Shot Data.
 
 ### Limitations
 - No support for FCPX exported from Adobe Premier
