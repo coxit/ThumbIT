@@ -38,7 +38,7 @@ class Shot():
         print('')
 
 
-
+    #TODO: Might be handy to add some functionality to the class itself.
     # ###########################################################################
     #
     # def tc_from_frames(frames, fps=24):

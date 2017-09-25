@@ -18,12 +18,14 @@ Tested on MacOSX only.
 ` python thumbit.py myproject.fcpxml mymovie.mov `
 
 Optional:
+
 ```
 -dest [path for exported thumbnails]
 -ext [file format for thumbnails (jpg, png)]
 ```
 
 ### Requires
+
 - Python 3
 - MMPEG
 - CV2
