@@ -4,8 +4,7 @@ import subprocess
 import cv2
 
 
-class ThumbnailMaker():
-
+class ThumbnailMaker:
     # TODO: Parralize the output process
 
     def __init__(self, source_movie, export_format='png', export_path='export/'):
@@ -29,6 +28,7 @@ class ThumbnailMaker():
     def export_frame(self, frame_second, export_filename, overwrite=True):
         '''
         Does not resize the frame right away
+        :param overwrite:
         :param frame_second: temporal position fo the frame we want to extract
         :param export_filename: How to name the file
         :return: path to generated file
@@ -39,18 +39,17 @@ class ThumbnailMaker():
         print('Exporting Frame at second {} from movie: {}'.format(frame_second, self.source_movie))
 
         # Check if we want to overwrite existing files
-        if overwrite == True:
+        if overwrite:
             ffmpeg_flags = '-y'
             print('(Will overwrite existing file)')
-
 
         # TODO: This is very fragile especially for the output path. Need to improve
         ffmpeg_command = 'ffmpeg {} -ss {} -i {} -vframes 1 {}{}.{}'.format(ffmpeg_flags,
                                                                             frame_second,
-                                                                         self.source_movie,
-                                                                         self.export_path,
-                                                                         export_filename,
-                                                                         self.export_format)
+                                                                            self.source_movie,
+                                                                            self.export_path,
+                                                                            export_filename,
+                                                                            self.export_format)
 
         print('Running ffmpeg with the following command:')
         print('{} \n'.format(ffmpeg_command))
@@ -67,10 +66,9 @@ class ThumbnailMaker():
 
         self.exported_frame_path = exported_frame_path
 
-
         return exported_frame_path
 
-####################################################################################################
+    ####################################################################################################
 
     def export_thumbnail_constrained(self, target_width=600):
         '''
@@ -87,15 +85,15 @@ class ThumbnailMaker():
         height, width = image.shape[:2]
         thumbnail_width = target_width
         thumbnail_height = int((target_width / width) * height)
-        thumbnail_size = (thumbnail_width, thumbnail_height)     # This is x * y ... not sure why
-
+        thumbnail_size = (thumbnail_width, thumbnail_height)  # This is x * y ... not sure why
 
         # Resize the image
-        resized_image = cv2.resize(image, thumbnail_size, interpolation = cv2.INTER_AREA)
+        resized_image = cv2.resize(image, thumbnail_size, interpolation=cv2.INTER_AREA)
 
         # Define Filename
         thumbnail_filename = self.exported_frame_path
-        thumbnail_filename = thumbnail_filename.split('.')[-2] + "_" + str(target_width) + "px." + thumbnail_filename.split('.')[-1]
+        thumbnail_filename = thumbnail_filename.split('.')[-2] + "_" + str(target_width) + "px." + \
+                             thumbnail_filename.split('.')[-1]
         print("Created a thumbnail: {} \n".format(thumbnail_filename))
 
         # Write the new thumbnail
@@ -125,7 +123,7 @@ class ThumbnailMaker():
             b = self.export_frame(framelist[i][0], framelist[i][1])
 
             # If we also need a thumbnail
-            if thumbnail == True:
+            if thumbnail:
                 self.export_thumbnail_constrained()
 
             i = i + 1
@@ -134,19 +132,16 @@ class ThumbnailMaker():
 
 
 if __name__ == '__main__':
-
     # Just for testing purposes
     print('Class test:')
 
     movieFile = 'tests/movie_2.mov'
     exportPath = 'export/'
-    #sizes = [(120, 120), (720, 720), (1600, 1600)]
+    # sizes = [(120, 120), (720, 720), (1600, 1600)]
     framelist = {}
 
     t = ThumbnailMaker(movieFile, 'jpg')
     t.export_frames(shotlist)
     # t.export_frame(1, 'sam_xxxx')
     t.export_thumbnail_constrained()
-    #t.export_thumbnail_from_image()
-
-
+    # t.export_thumbnail_from_image()

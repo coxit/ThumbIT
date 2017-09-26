@@ -28,7 +28,7 @@ Optional:
 ### Requires
 
 - Python 3
-- MMPEG
+- FFMPEG
 - CV2
 
 ### Planned Features
