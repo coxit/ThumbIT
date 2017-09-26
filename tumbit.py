@@ -1,16 +1,13 @@
-import xml.etree.ElementTree
-from xml.etree.ElementTree import parse
-import pprint
-import sys
 import argparse
-import shotlist
-import subprocess
 import os
+import shelve
+import xml.etree.ElementTree
+from datetime import datetime
+
+import fcpxml_helper as fcpx
+import shotlist
 from shot import Shot
 from thumbnail import ThumbnailMaker
-import fcpxml_helper as fcpx
-import os
-from datetime import datetime
 
 '''
 
@@ -67,7 +64,7 @@ if mkdir_p(temp_dir):
 
 ###########################################################################
 # Creat shotlist shelve
-import shelve
+
 
 shotlist = shelve.open(temp_dir + "shotlist_shelve")
 
@@ -271,7 +268,7 @@ if __name__ == '__main__':
 
     ###########################################################################
     # Command Line Interface
-    import argparse
+
 
     parser = argparse.ArgumentParser(description='Extracting Thumbnails made easy',
                                      usage='%(prog)s xmlfile movie',
