@@ -11,7 +11,7 @@ class Shot:
 
     # Add additional attributes for thumbnail
         if self.offset:
-            self.thumbnail_sec = fcpx.fcpx_timevalue_to_seconds(self.offset)
+            self.thumbnail_sec = fcpx.seconds_from_timevalue(self.offset)
         else:
             self.thumbnail_sec = ''
 

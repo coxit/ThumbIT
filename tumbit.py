@@ -28,6 +28,8 @@ ToDo Features:
 
 '''
 
+# TODO Read proper FPS from XML
+
 print('-------------------------------------------------------------------')
 print('THUMB IT v0.1 \n')
 
@@ -115,7 +117,7 @@ def create_thumbnails_from_shotlist(shotlist, movie, export_format='png', export
         # print("Creating Thumbs: ", key, '=>', 'Thumbnail:', shotlist[key].thumbnail_sec, shotlist[key].shotCode)
 
         # FFMPEG counts seconds from the start of the timeline so we need to deduct start from offset
-        timeline_start = fcpx.fcpx_timevalue_to_seconds(srcTimelineFormat['tcStart'])
+        timeline_start = fcpx.seconds_from_timevalue(srcTimelineFormat['tcStart'])
         thumbnail_sec = shotlist[key].thumbnail_sec - timeline_start
 
         # add the thumbnail to the list
