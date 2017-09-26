@@ -77,21 +77,32 @@ def seconds_from_timevalue(source, fps=24):
 
 
 def fps_from_timeline_format(arg):
+    '''
+
+    :param arg: FCPX Video Format Tag (eg 'FFVideoFormat1080i50')
+    :return: frames per second as integer.
+    '''
     # TODO: New Function: Fps from format/name in XML to support more standards
 
-    arg = arg.strip('_16x9')
-    arg = arg.strip("FFVideoFormat")
-
-    if 'i' in arg:
-        arg = arg.rsplit('i')[1]
-    elif 'p' in arg:
-        arg = arg.rsplit('p')[1]
-
-    if len(arg) > 2:
-        fps = int(arg) / 100
+    # If the format is undefined, assign 24fps.
+    if 'Undefined' in arg:
+        fps = 24.0
+        print('WARNING: Frame Rate Undefined -> default is 24.0')
     else:
-        fps = arg
+        arg = arg.rstrip('_16x9')
+        arg = arg.strip("FFVideoFormat")
 
+        # for interlaced (i) / progressive (p) formats
+        if 'i' in arg:
+            arg = arg.rsplit('i')[1]
+        elif 'p' in arg:
+            arg = arg.rsplit('p')[1]
+
+        # Check if more than 2 digits and convert to integer:
+        if len(arg) > 2:
+            fps = int(arg) / 100
+        else:
+            fps = int(arg) / 1
 
     return fps
 
@@ -128,5 +139,6 @@ if __name__ == '__main__':
     ]
 
     for x in testcases_formats:
-        print('Value: {} => {} correct: {}'.format(x[0], fps_from_timeline_format(x[0]), x[1]))
+        print('Value: {} => result: {}; correct value: {}'.format(x[0], fps_from_timeline_format(x[0]), x[1]))
 
+    int(fps_from_timeline_format("FFVideoFormat1080i50"))
